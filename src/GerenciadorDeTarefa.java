@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class GerenciadorDeTarefa {
     public void getMenu() {
@@ -47,10 +46,7 @@ public class GerenciadorDeTarefa {
         this.getTarefas(tarefas);
     }
 
-    public void removerTarefa(ArrayList<Tarefa> lista, int escolha, Scanner input, ArrayList<Tarefa> tarefas) {
-        System.out.println("Qual tarefa deseja remover?");
-        escolha = input.nextInt();
-        input.nextLine();
+    public void removerTarefa(ArrayList<Tarefa> lista, int escolha, ArrayList<Tarefa> tarefas) {
 
         if (lista.isEmpty()) {
             System.out.println("Nenhuma tarefa encontrada\n");
@@ -109,30 +105,17 @@ public class GerenciadorDeTarefa {
         }
         this.getTarefas(filtradas);
     }
-    public void alterarOuRemover(ArrayList<Tarefa> tarefas, int escolha, Scanner input, ArrayList<Tarefa> lista) {
-        System.out.println("Qual a alteração");
-        System.out.println("1.Remover Tarefa");
-        System.out.println("2.Alterar Tarefa");
-        escolha = input.nextInt();
-
-        switch (escolha) {
-            case 1:
-                getTarefas(lista);
-                removerTarefa(lista,escolha,input,tarefas);
-                break;
-            case 2:
-                getTarefas(lista);
-                System.out.println("Qual tarefa deseja alterar?");
-                escolha = input.nextInt();
-                input.nextLine();
-
-                validarEscolha(lista,escolha);
-                int escolhaStatus = input.nextInt();
-                input.nextLine();
-
-                Tarefa novoStatus = lista.get(escolha-1);
-                alterarTarefa(lista,escolhaStatus,novoStatus);
-
+    public String validarStatus(int escolha, String statusFiltrado){
+        switch(escolha){
+            case 1-> statusFiltrado = "Não feita";
+            case 2-> statusFiltrado = "Em andamento";
+            case 3-> statusFiltrado = "Concluida";
+            case 4-> statusFiltrado = "";
+            default-> {
+                statusFiltrado = null;
+                System.out.println("Opção invalida");
+            }
         }
+        return statusFiltrado;
     }
 }

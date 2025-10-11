@@ -6,7 +6,8 @@ public class Main {
         GerenciadorDeTarefa gerenciador = new GerenciadorDeTarefa();
         Scanner input = new Scanner(System.in);
         ArrayList<Tarefa> tarefas = new ArrayList<>();
-        int escolha = 0;
+        int escolha,escolhaStatus;
+        Tarefa novoStatus;
 
 
         while(true){
@@ -31,7 +32,11 @@ public class Main {
                 case "2":
                     gerenciador.getTarefas(tarefas);
 
-                    gerenciador.removerTarefa(tarefas,escolha,input,tarefas);
+                    System.out.println("Qual tarefa deseja remover?");
+                    escolha = input.nextInt();
+                    input.nextLine();
+
+                    gerenciador.removerTarefa(tarefas,escolha,tarefas);
                     break;
 
                 case "3":
@@ -41,10 +46,10 @@ public class Main {
                     input.nextLine();
 
                     gerenciador.validarEscolha(tarefas,escolha);
-                    int escolhaStatus = input.nextInt();
+                    escolhaStatus = input.nextInt();
                     input.nextLine();
 
-                    Tarefa novoStatus = tarefas.get(escolha-1);
+                    novoStatus = tarefas.get(escolha-1);
 
                     gerenciador.alterarTarefa(tarefas,escolhaStatus,novoStatus);
                     break;
@@ -54,19 +59,10 @@ public class Main {
                     gerenciador.getMenuStatus(true);
                     escolha = input.nextInt();
                     input.nextLine();
-                    String statusFiltrado;
+                    String statusFiltrado = "";
 
-                    switch(escolha){
-                        case 1-> statusFiltrado = "Não feita";
-                        case 2-> statusFiltrado = "Em andamento";
-                        case 3-> statusFiltrado = "Concluida";
-                        case 4-> statusFiltrado = "";
-                        default-> {
-                            statusFiltrado = null;
-                            System.out.println("Opção invalida");
-                        }
+                    gerenciador.validarStatus(escolha,statusFiltrado);
 
-                    }
                     ArrayList<Tarefa> filtradas = new ArrayList<>();
                     gerenciador.mostrarFiltradas(tarefas,filtradas,statusFiltrado);
 
@@ -74,7 +70,30 @@ public class Main {
                     String resposta = input.nextLine();
 
                     if(resposta.equalsIgnoreCase("S")){
-                        gerenciador.alterarOuRemover(tarefas,escolha,input,filtradas);
+                        System.out.println("Qual a alteração");
+                        System.out.println("1.Remover Tarefa");
+                        System.out.println("2.Alterar Tarefa");
+                        escolha = input.nextInt();
+
+                        switch (escolha) {
+                            case 1:
+                                gerenciador.getTarefas(filtradas);
+                                gerenciador.removerTarefa(filtradas,escolha,tarefas);
+                                break;
+                            case 2:
+                                gerenciador.getTarefas(filtradas);
+                                System.out.println("Qual tarefa deseja alterar?");
+                                escolha = input.nextInt();
+                                input.nextLine();
+
+                                gerenciador.validarEscolha(filtradas,escolha);
+                                escolhaStatus = input.nextInt();
+                                input.nextLine();
+
+                                novoStatus = filtradas.get(escolha-1);
+                                gerenciador.alterarTarefa(filtradas,escolhaStatus,novoStatus);
+
+                        }
                     }else if(resposta.equalsIgnoreCase("N")){
                         break;
                     }else {

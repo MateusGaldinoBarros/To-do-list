@@ -1,10 +1,12 @@
 public class Tarefa {
     private String descricao;
     private String status;
+    private int id;
 
-    public Tarefa (String descricao, String status){
+    public Tarefa (String descricao, String status, int id){
         this.descricao = descricao;
         this.status = status;
+        this.id = id;
     }
     public String getDescricao() {
         return descricao;
@@ -17,6 +19,12 @@ public class Tarefa {
     }
     public void setStatus(String status) {
         this.status = status;
+    }
+    public int getId() {
+        return id;
+    }
+    public void setStatus(int id) {
+        this.id = id;
     }
 
 

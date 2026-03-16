@@ -39,7 +39,7 @@ public class GerenciadorDeTarefa {
             status = "Concluida";
         }
 
-        Tarefa t = new Tarefa(descricao, status);
+        Tarefa t = new Tarefa(descricao, status, id);
 
         tarefas.add(t);
         System.out.println("Tarefa adicionada com sucesso!\n");

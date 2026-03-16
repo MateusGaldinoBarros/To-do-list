@@ -1,13 +1,18 @@
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
 public class Main {
     public static void main(String []args){
+        Connection conexao = ConexaoDB.conectar();
+
         GerenciadorDeTarefa gerenciador = new GerenciadorDeTarefa();
         Scanner input = new Scanner(System.in);
         ArrayList<Tarefa> tarefas = new ArrayList<>();
         int escolha,escolhaStatus;
         Tarefa novoStatus;
+
 
 
         while(true){

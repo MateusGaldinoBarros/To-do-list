@@ -1,6 +1,8 @@
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import com.mysql.cj.protocol.Resultset;
+
+import javax.xml.transform.Result;
+import java.sql.*;
+import java.util.ArrayList;
 
 
 public class TarefaDAO {
@@ -34,5 +36,38 @@ public class TarefaDAO {
         } catch (SQLException e) {
             System.out.println("Erro ao remover: "+e.getMessage());
         }
+    }
+
+    public void alterar (Tarefa tarefa) {
+        String sql = "UPDATE tarefas SET status = ? WHERE id = ?";
+
+        try {
+            PreparedStatement stmt = conexao.prepareStatement(sql);
+            stmt.setString(1, tarefa.getStatus());
+            stmt.setInt(2, tarefa.getId());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Erro no alterar "+e.getMessage());
+        }
+    }
+
+    public ArrayList<Tarefa> listar() {
+        String sql = "SELECT * FROM tarefas";
+        ArrayList<Tarefa> tarefas = new ArrayList<>();
+
+        try {
+            PreparedStatement stmt = conexao.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Tarefa t = new Tarefa(rs.getString("descricao"), rs.getString("status"));
+                t.setId(rs.getInt("id"));
+                tarefas.add(t);
+            }
+
+        }catch (SQLException e) {
+            System.out.println("Erro ao listar "+e.getMessage());
+        }
+        return tarefas;
     }
 }

@@ -3,9 +3,14 @@ public class Tarefa {
     private String status;
     private int id;
 
-    public Tarefa (String descricao, String status, int id){
+    public Tarefa (String descricao, String status){
         this.descricao = descricao;
         this.status = status;
+    }
+
+    public Tarefa (String descricao, String status, int id) {
+        this.descricao = descricao;
+        this.status = descricao;
         this.id = id;
     }
     public String getDescricao() {
@@ -23,7 +28,7 @@ public class Tarefa {
     public int getId() {
         return id;
     }
-    public void setStatus(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 

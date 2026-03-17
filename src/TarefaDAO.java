@@ -1,6 +1,3 @@
-import com.mysql.cj.protocol.Resultset;
-
-import javax.xml.transform.Result;
 import java.sql.*;
 import java.util.ArrayList;
 

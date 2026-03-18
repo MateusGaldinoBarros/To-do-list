@@ -1,6 +1,6 @@
 public class Menu {
     public static void menu() {
-        System.out.println("-----------------");
+        System.out.println("\n-----------------");
         System.out.println("Selecione a opção");
         System.out.println("1.Adicionar Tarefa");
         System.out.println("2.Remover tarefa");

@@ -8,6 +8,10 @@ public class Tarefa {
         this.status = status;
     }
 
+    public Tarefa() {
+
+    }
+
     public Tarefa (String descricao, String status, int id) {
         this.descricao = descricao;
         this.status = descricao;

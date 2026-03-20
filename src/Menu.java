@@ -7,6 +7,7 @@ public class Menu {
         System.out.println("3.Alterar tarefa");
         System.out.println("4.Listar tarefas");
         System.out.println("5.Sair");
+        System.out.println("\n-----------------");
     }
 
 }

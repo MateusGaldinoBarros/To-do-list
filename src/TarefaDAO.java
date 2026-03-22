@@ -67,4 +67,26 @@ public class TarefaDAO {
         }
         return tarefas;
     }
+
+    public ArrayList<Tarefa> filtro(Tarefa tarefa) {
+        String sql = "SELECT * FROM tarefas WHERE status = ?";
+        ArrayList<Tarefa> tarefas = new ArrayList<>();
+
+        try {
+            PreparedStatement stmt = conexao.prepareStatement(sql);
+            stmt.setString(1, tarefa.getStatus());
+            ResultSet rs = stmt.executeQuery();
+
+
+            while(rs.next()) {
+                Tarefa t = new Tarefa(rs.getString("descricao"), rs.getString("status"));
+                t.setId(rs.getInt("id"));
+                tarefas.add(t);
+            }
+        }catch (SQLException e) {
+            System.out.println("Erro ao filtrar"+e.getMessage());
+        }
+
+        return tarefas;
+    }
 }

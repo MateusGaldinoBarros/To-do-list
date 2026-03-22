@@ -66,10 +66,11 @@ public class Main {
                     input.nextLine();
 
                     boolean encontrou = false;
-
-                    for (Tarefa t: tarefas) {
-                        if (t.getId() == opcao) {
+                    Tarefa t = null;
+                    for (Tarefa tarefa: tarefas) {
+                        if (tarefa.getId() == opcao) {
                             encontrou = true;
+                            t= tarefa;
                             break;
                         }
                     }
@@ -79,10 +80,17 @@ public class Main {
                         break;
                     }
 
-                    Tarefa t = new Tarefa();
-                    t.setId(opcao);
+                    System.out.println(t);
+                    System.out.println("Tem certeza que deseja remover essa tarefa? (y/n)");
+                    String resposta;
+                    resposta = input.nextLine();
+                    if (resposta.equals("y")|| resposta.equals("Y")) {
+                        dao.remover(t);
+                    }else {
+                        break;
+                    }
 
-                    dao.remover(t);
+
 
                     break;
 
@@ -137,13 +145,51 @@ public class Main {
                     break;
 
                 } case 4: {
-                    ArrayList<Tarefa> tarefas = dao.listar();
+                    System.out.println("Quais tarefas deseja listar?");
+                    System.out.println("1.Todas\n2.Concluidas\n3.Em andamento\n4.Não feitas");
 
-                    for(Tarefa tarefa: tarefas ) {
-                        System.out.println(tarefa.getId()+"."+tarefa);
+                    opcao = input.nextInt();
+                    input.nextLine();
+
+                    if (opcao == 1) {
+                        ArrayList<Tarefa> tarefas = dao.listar();
+
+                        for(Tarefa tarefa: tarefas ) {
+                            System.out.println(tarefa.getId()+"."+tarefa);
+                        }
+                    }else if(opcao == 2) {
+                        Tarefa t = new Tarefa();
+                        t.setStatus("Concluida");
+
+                        ArrayList<Tarefa> tarefas = dao.filtro(t);
+
+                        for(Tarefa tarefa: tarefas ) {
+                            System.out.println(tarefa.getId()+"."+tarefa);
+                        }
+                    }else if (opcao == 3) {
+                        Tarefa t = new Tarefa();
+                        t.setStatus("Em andamento");
+
+                        ArrayList<Tarefa> tarefas = dao.filtro(t);
+
+                        for(Tarefa tarefa: tarefas ) {
+                            System.out.println(tarefa.getId()+"."+tarefa);
+                        }
+                    } else if (opcao == 4) {
+                        Tarefa t = new Tarefa();
+                        t.setStatus("Não feita");
+
+                        ArrayList<Tarefa> tarefas = dao.filtro(t);
+
+                        for(Tarefa tarefa: tarefas ) {
+                            System.out.println(tarefa.getId()+"."+tarefa);
+                        }
                     }
+
+
                     break;
                 }
+                
 
             }
         } while (opcao != 5);
